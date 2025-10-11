@@ -25,7 +25,7 @@ Aunque siempre estoy explorando nuevas tecnologías, estas son las herramientas 
 
 ### Sobre Este Blog
 
-Este blog es mi bitácora pública y mi cuaderno de notas digital. Nació como una forma de documentar mis proyectos personales, como ~~[Terminus]~~, y de solidificar mi propio conocimiento. Si explico algo aquí, es porque estoy tratando de entenderlo a fondo.
+Este blog es mi bitácora pública y mi cuaderno de notas digital. Nació como una forma de documentar mis proyectos personales, como ~~Terminus~~, y de solidificar mi propio conocimiento. Si explico algo aquí, es porque estoy tratando de entenderlo a fondo.
 
 Aquí encontrarás:
 * Análisis profundos de mis proyectos personales.
