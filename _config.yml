@@ -8,8 +8,13 @@ theme: jekyll-theme-chirpy
 # otherwise, the layout language will use the default value of 'en'.
 lang: MX-es
 
+<<<<<<< HEAD
 # Change to your timezone › https://kevinnovak.github.io/Time-Zone-Picker
 timezone: UTC-6
+=======
+# Change to your timezone › https://zones.arilyn.cc
+timezone: Asia/Shanghai
+>>>>>>> 4d6c788b9c67c172a679fe22ce34758fb63cb312
 
 # jekyll-seo-tag settings › https://github.com/jekyll/jekyll-seo-tag/blob/master/docs/usage.md
 # ↓ --------------------------
