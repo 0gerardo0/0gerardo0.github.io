@@ -5,7 +5,7 @@ categories: [Desarrollo, Proyectos]
 tags: [gnome, gjs, python, linux, sistemas]
 toc: true
 image:
-  path: /assets/img/posts/gnome-extension-banner.jpg
+  path: /assets/img/posts/gnome-extension-baner.jpg
   alt: "Logo de GNOME Extension."
 ---
 
@@ -15,7 +15,7 @@ En este post, quiero desglosar no solo qué hace la extensión, sino también el
 
 ## El Problema: Un Clic de Más
 
-La tarea era simple: necesitaba conocer mi dirección IP pública de forma rápida y frecuente. El método tradicional implicaba abrir un navegador, buscar "cuál es mi IP", esperar a que cargara la página y copiar el resultado, otra es utilizar la terminal, que me gusta pero me parece un poco engorroso. Demasiados pasos para una información tan sencilla. Y me parecia que un poco marginal que en otros entornos de escritorio hubiera mas herramientas para tener una información tan necesaria a la vista. Algo que en Gnome no encontre o no tenian un mantenimiento. 
+La tarea era simple: necesitaba conocer mi dirección IP pública de forma rápida y frecuente. El método tradicional implicaba abrir un navegador, buscar "cuál es mi IP", esperar a que cargara la página y copiar el resultado, otra es utilizar la terminal, que me gusta pero me parece un poco engorroso. Demasiados pasos para una información tan sencilla. Y me parecia que un poco marginal que en otros entornos de escritorio hubiera mas herramientas para tener una información tan necesaria a la vista. Algo que en Gnome no encontre o no tenia una en mantenimiento. 
 
 **La solución era clara:** una pequeña herramienta en la barra superior de mi escritorio que, con un solo clic, me mostrara mi IP y la copiara al portapapeles. Así nació la idea de IP-INFO-BAR. Tengo que aclarar que mi inspiración viene totalmente de que en otros entorno mas para desarrollo tengan esta funcionalidad.
 
@@ -41,7 +41,7 @@ La primera pregunta que me hice fue: ¿puedo hacer todo en GJS? La respuesta es 
 
 Decidí dividir el proyecto en dos partes para aprovechar lo mejor de cada mundo:
 
-1.  **El Frontend (GJS):** `extension.js` se encarga de mostrar el ícono y manejar el clic.
+1.  **El Frontend (GJS):** `extension.js` se encarga de mostrar el lo visual y manejar el clic.
 2.  **El Backend (Python):** Un script de Python se encarga de hacer la petición web, obtener la IP e inspeccionar el estado local del sistema y devolverla en un formato simple (JSON).
 
 La comunicación entre ambos es sorprendentemente sencilla: `extension.js` simplemente ejecuta el script de Python como un proceso del sistema y captura su salida.
@@ -77,7 +77,7 @@ Era funciona, pero lento. El verdadero cambio de juego fue cuando descubri la de
 ```bash
 dbus-run-session -- gnome-shell --nested --wayland
 ```
-puedes lanzar una sesión completa de GNOME dentro de una ventana en tu escritorio actual. Claro esto desde mi utilizo el servidor de visualización de `Wayland`. Esta funcionalidad permite instalar, desinstalar y romper la extensión a voluntad, con una consola de errores en vivo, sin afectar tu sesión de trabajo principal. Fue un salto de producctividad gigantesco.
+puedes lanzar una sesión completa de GNOME dentro de una ventana en tu escritorio actual. Claro esto desde donde utilizo el servidor de visualización de `Wayland`. Esta funcionalidad permite instalar, desinstalar y romper la extensión a voluntad, con una consola de errores en vivo, sin afectar tu sesión de trabajo principal. Fue un salto de productividad gigantesco.
 
 #### La Migración de una Solución "Chusca"
 
@@ -134,7 +134,7 @@ Crear IP Info Bar fue un viaje de aprendizaje inmenso. No solo solucionó un pro
 Si te interesa, puedes encontrar la extension en la tienda [tienda oficial de extensiones de GNOME]() y revisar todo el codigo fuente en su [repositorio de Github](https://github.com/0gerardo0/IP-Info-Bar).
 
 > Como se menciona en el cuerpo del texto a fecha de que que se escribio este articulo la extensión sigue en proceso de revisión. Cuando este aprovada subire un post mecionando como fue el proceso y las veces que fue rechazada la extensión.
-{:. prompt-info}
+{: .prompt-info}
 
 ## Referencias 
 
@@ -150,7 +150,7 @@ Si te interesa, puedes encontrar la extension en la tienda [tienda oficial de ex
 
 * Zúñiga, G. (2025). *IP-Info-Bar* [Software]. GitHub. [IP INFO BAR GitHub](https://github.com/0gerardo0/IP-Info-Bar)
 
-* Atlassian. (s.f.). *Gitflow workflow*. https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow
+* Atlassian. (s.f.). *Gitflow workflow*. [https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow)
 
-* Python Software Foundation. (s.f.). *json — JSON encoder and decoder*. The Python Standard Library. https://docs.python.org/3/library/json.html
-
+* Python Software Foundation. (s.f.). *json — JSON encoder and decoder*. The Python Standard Library. [https://docs.python.org/3/library/json.html](https://docs.python.org/3/library/json.html)
+ 
