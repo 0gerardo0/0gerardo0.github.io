@@ -131,7 +131,7 @@ Con una base robusta y funcional ya establecida, el camino está despejado para 
 ## Conclusión 
 Crear IP Info Bar fue un viaje de aprendizaje inmenso. No solo solucionó un problema personal, sino que me abrió las puertas al desarrollo de escritorio en Linux de una forma moderna y accesible. Dividir la logica entre GJS y Python demostró se una estrategia robusta que planeo usar en futuros proyectos.
 
-Si te interesa, puedes encontrar la extension en la tienda [tienda oficial de extensiones de GNOME]() y revisar todo el codigo fuente en su [repositorio de Github](https://github.com/0gerardo0/IP-Info-Bar).
+Si te interesa, puedes encontrar la extension en la tienda [tienda oficial de extensiones de GNOME](https://example.com) y revisar todo el codigo fuente en su [repositorio de Github](https://github.com/0gerardo0/IP-Info-Bar).
 
 > Como se menciona en el cuerpo del texto a fecha de que que se escribio este articulo la extensión sigue en proceso de revisión. Cuando este aprovada subire un post mecionando como fue el proceso y las veces que fue rechazada la extensión.
 {: .prompt-info}
