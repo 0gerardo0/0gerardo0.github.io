@@ -107,7 +107,7 @@ Con la extensión funcionando y el proyecto bien gestionado, llegó la fase fina
 
 A medida que la extensión maduraba, me di cuenta de un reto fundamental para cualquier software de distribución global: el soporte para múltiples idiomas. La internacionalización (conocida como `i18n`) no es simplemente traducir texto; implica preparar toda la estructura del código para que pueda cargar diferentes cadenas de texto dinámicamente.
 
-Es un proceso fascinante y lo suficientemente complejo como para que planee dedicarle un artículo completo en el futuro, donde exploraré cómo implementar un sistema de traducciones mantenible en una extensión GNOME y puedes revisar este post donde hablo de como itilizar la herramienta de [gettext](./2025-10-16-internacionalizacion-de-una-extension-gnome.md).
+Es un proceso fascinante y lo suficientemente complejo como para que planee dedicarle un artículo completo en el futuro, donde exploraré cómo implementar un sistema de traducciones mantenible en una extensión GNOME y puedes revisar este post donde hablo de como itilizar la herramienta de [gettext]({% post_url 2025-10-16-internacionalizacion-de-una-extension-gnome.md %})
 
 #### La espera y la Paciencia
 

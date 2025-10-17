@@ -9,9 +9,9 @@ image:
     alt: "Banner de gato con letras"
 ---
 
-Este post es una guía practica y entendimiento de que con lleva hacer un traducción de una extension o desarrollo de software, ya que me pareció interesante aprender sobre esta utilidad y lo potente que puede ser. Exploraremos el sistema `gettext` , cómo automatizar el proceso con un `Makefile`  y las lecciones que aprendí al preparar mi extensión para ser multilingüe.
+Este post es una guía práctica sobre el proceso de traducción de software. Quiero compartir mi entendimiento sobre lo que conlleva la internacionalización, ya que me pareció interesante aprender sobre esta utilidad y lo potente que puede ser. Exploraremos el sistema `gettext` , cómo automatizar el proceso con un `Makefile`  y las lecciones que aprendí al preparar mi extensión para ser multilingüe.
 
-En mi post sobre la [creación de IP INFO BAR](./2025-10-13-Creando-IP-INFO-BAR-Mi-Extensión-para-GNOME.md), mencioné que uno de los grandes retos para que este proyecto de software madure es la **internacionalización (i18n)**. Una vez que pude presentar la extensión como funcional, el siguiente paso era hacerla accecible para otros usuarios que no hablen mi idioma 
+En mi post sobre la [creación de IP INFO BAR]({% post_url 2025-10-13-Creando-IP-INFO-BAR-Mi-Extensión-para-GNOME.md %), mencioné que uno de los grandes retos para que este proyecto de software madure es la **internacionalización (i18n)**. Una vez que pude presentar la extensión como funcional, el siguiente paso era hacerla accesible para otros usuarios que no hablen mi idioma 
 
 ## Traducción 'gettext'
 
@@ -23,7 +23,7 @@ La forma en la que puedo pensar que funciona este sistema es como un diccionario
 
 2. **Extraer el texto:** Donde se coloca la funcion de `gettext` es donde escanea el codigo, y extrae todas las cadenas marcadas y las pone en un archivo de plantilla.
 
-3. **Traduces:** La traducción consiste en tener como base la plantilla y hacer una copia para cada idioma que se quiera soportar para la aplicación, aunque es tedioso para aplicaiones extensas, se rellena laa plantilla para la traducción. 
+3. **Traduces:** La traducción consiste en tener como base la plantilla y hacer una copia para cada idioma que se quiera soportar para la aplicación, aunque es tedioso para aplicaiones extensas, se rellena la plantilla para la traducción. 
 
 ### Los archivos clave 
 
@@ -33,22 +33,26 @@ La forma en la que puedo pensar que funciona este sistema es como un diccionario
 
 ## Paso 1: Marcar el texto en el Código
 
-El primer paso es decirle a `gettext` qué cadenas de texto se necesitan traducir. Esto se hace con una función especial, que por convenecia se renombre por un guion bajo: `_()`.
+El primer paso es decirle a `gettext` qué cadenas de texto se necesitan traducir. Esto se hace con una función especial, que por conveniencia se renombre por un guion bajo: `_()`.
 
 Primero, es importar la herramienta en la extension `extension.js`:
 
 ```javascript
-import {Extension, gettext as _} from 'resource:///org/gnome/shell/extensions/extension.js'
+  import {Extension, gettext as _} from 'resource:///org/gnome/shell/extensions/extension.js'
 ```
 
 Luego, en cualquier lugar en donde se define un texto para la interfaz, se aplica la función especial `_()`:
 
 ```javascript
-let label = 'IP Address'; ==> let label = _('IP Address');
+  // Antes:
+  let label = 'IP Address';
+
+  // Después, envuelto en la función de traducción:
+  let label = _('IP Address');
 ```
 La función `_()` actúa como un marcador que `gettext` puede encontrar. En tiempo de ejecución, esta misma función se encargará de buscar la traducción correcta para "IP Address" en el idioma del usuario.
 
-## Paso 2: El Flijo de Trabajo: Manual vs. Automatizado
+## Paso 2: El Flujo de Trabajo: Manual vs. Automatizado
 
 Extraer, actualizar y compilar los archivos de traducción siempre es tedioso y se cometen algunos errores, o es propenso a fallar. Lo mejor para automatizar esta tarea es utilizar un script `Makefile`, donde se convierte en archivo que puede hacer este conjunto de tareas.
 
@@ -78,7 +82,7 @@ Con el archivo con las traducciones listas en la copia del idioma al que se trad
     msgfmt po/es.po -o locale/es/LC_MESSAGES/ip-info-bar.mo
 ```
 
-El comando lo que hace es primero asegurar que la estructura de carpetas exista, y luego se compila el archivo. Donde `msgfmt` es la herramienta que compila el archivo `.po` y los siguiente parametros indican la entrada y salida de archivos. Algo que se tiene que mencionar es que la ruta de los archivos no es albitraria, es lo que espera `gettext` como estructura de directorios para encotrar y cargar las trducciones (`locale/<idioma>/LC_MESSAGES/`).
+El comando lo que hace es primero asegurar que la estructura de carpetas exista, y luego se compila el archivo. Donde `msgfmt` es la herramienta que compila el archivo `.po` y los siguiente parametros indican la entrada y salida de archivos. Algo que se tiene que mencionar es que la ruta de los archivos no es arbitraria, es lo que espera `gettext` como estructura de directorios para encontrar y cargar las trducciones (`locale/<idioma>/LC_MESSAGES/`).
 
  ### El proceso Automatizado:
 
@@ -123,7 +127,7 @@ Para simplificar la explicación de este código,se divide en tres comandos el f
 
 ## Conclusión 
 
-La internacionalización puede parecer en pricipio inccesario, pero es una utilidad bastante conveniente, ya que esto hace que la comunidad pueda colaborar y puedan revisar y mejorar las traducciones. Estas herramientas como `gettext` y la automatización `Makefile` la convierte en un proceso manejable y estructurado. Y preprar mi extensión IP INFO BAR para ser multiligüe fue un buen aprendizaje para la contruccion de software y pueda tener un alcance global.
+Aunque la internacionalización puede parecer un paso secundario, es fundamental para que un proyecto de software alcance una audiencia global, ya que esto hace que la comunidad pueda colaborar, revisar y mejorar las traducciones. Estas herramientas como `gettext` y la automatización `Makefile` la convierte en un proceso manejable y estructurado. Y preprar mi extensión IP INFO BAR para ser multilingüe fue un buen aprendizaje para la contruccion de software y pueda tener un alcance global.
 
 Es algo interesante como esta es una de las piezas para la introducción colaboración en los proyectos de codigo abierto. 
 
