@@ -3,6 +3,7 @@ layout: page
 title: Acerca de Mí
 permalink: /about/
 comments: false
+order: 4
 ---
 
 ¡Hola! Soy Gerardo, ingeniero físico y un entusiasta de la tecnología con una misión clara: entender cómo funcionan las tecnologias desde el bajo nivel hasta el mas alto.
