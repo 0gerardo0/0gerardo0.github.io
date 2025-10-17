@@ -94,7 +94,7 @@ Esta es la genialidad de estos archivos, para evitar hacer ese proceso manual y 
 
 Como ejemplo, el script que se utilizo en IP INFO BAR: 
 
-```Makefile
+```bash
 GETTEXT_PACKAGE = ip-info-bar
 I18N_DIR = po
 
