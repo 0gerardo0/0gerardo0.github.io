@@ -11,7 +11,7 @@ image:
 
 Este post es una guía práctica sobre el proceso de traducción de software. Quiero compartir mi entendimiento sobre lo que conlleva la internacionalización, ya que me pareció interesante aprender sobre esta utilidad y lo potente que puede ser. Exploraremos el sistema `gettext` , cómo automatizar el proceso con un `Makefile`  y las lecciones que aprendí al preparar mi extensión para ser multilingüe.
 
-En mi post sobre la [creación de IP INFO BAR]({% post_url 2025-10-13-Creando-IP-INFO-BAR-Mi-Extensión-para-GNOME.md %), mencioné que uno de los grandes retos para que este proyecto de software madure es la **internacionalización (i18n)**. Una vez que pude presentar la extensión como funcional, el siguiente paso era hacerla accesible para otros usuarios que no hablen mi idioma 
+En mi post sobre la [creación de IP INFO BAR]({% post_url 2025-10-13-Creando-IP-INFO-BAR-Mi-Extensión-para-GNOME %), mencioné que uno de los grandes retos para que este proyecto de software madure es la **internacionalización (i18n)**. Una vez que pude presentar la extensión como funcional, el siguiente paso era hacerla accesible para otros usuarios que no hablen mi idioma 
 
 ## Traducción 'gettext'
 
