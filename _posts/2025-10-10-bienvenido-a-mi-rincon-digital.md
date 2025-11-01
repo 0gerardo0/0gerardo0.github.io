@@ -95,6 +95,6 @@ Puedes encontrarme y ver mis proyectos en mi [Perfil de Github](https://github.c
 
 ## Referencia 
 
-* **Cotes, C. (2024, 19 de julio)**. *Write a new post*. Chirpy. https://chirpy.cotes.page/posts/write-a-new-post/
+* **Cotes, C. (2024, 19 de julio)**. *Write a new post*. Chirpy. [https://chirpy.cotes.page/posts/write-a-new-post/](https://chirpy.cotes.page/posts/write-a-new-post/)
 
-* **Cotes2020. (2024)**. *Jekyll-theme-chirpy* (Version 7.3.1) [Software]. GitHub. https://github.com/cotes2020/jekyll-theme-chirpy
+* **Cotes2020. (2024)**. *Jekyll-theme-chirpy* (Version 7.3.1) [Software]. GitHub. [https://github.com/cotes2020/jekyll-theme-chirpy](https://github.com/cotes2020/jekyll-theme-chirpy)

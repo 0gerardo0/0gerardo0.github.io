@@ -138,13 +138,13 @@ Si te interesa, puedes encontrar la extension en la tienda [tienda oficial de ex
 
 ## Referencias 
 
-* GNOME. (s.f.). Writing Your First Extension. GNOME Developer Documentation. Recuperado el 13 de octubre de 2025, de [GJS Guide: Getting Started](https://gjs.guide/extensions/development/creating.html)
+* GNOME. (s.f.). Writing Your First Extension. GNOME Developer Documentation. [GJS Guide: Getting Started](https://gjs.guide/extensions/development/creating.html)
 
-* GNOME. (s.f.). GJS Guide. GJS. Recuperado el 13 de octubre de 2025, de [GJS Docs: GNOME](https://gjs-docs.gnome.org/)
+* GNOME. (s.f.). GJS Guide. GJS. [GJS Docs: GNOME](https://gjs-docs.gnome.org/)
 
 * GNOME. (s.f.). *Running and Debugging*. GJS Guide. [GJS Debugging](https://gjs.guide/extensions/development/debugging.html)
 
-* Waterman, J. (2024). *psutil* (Version 5.9.8) [Software]. Python Package Index. https://pypi.org/project/psutil/
+* Waterman, J. (2024). *psutil* (Version 5.9.8) [Software]. Python Package Index. [psutil PyPi](https://pypi.org/project/psutil/)
 
 * GNOME. (s.f.). *Translations*. GJS Guide. [GJS Development: Translations](https://gjs.guide/extensions/development/translations.html)
 
