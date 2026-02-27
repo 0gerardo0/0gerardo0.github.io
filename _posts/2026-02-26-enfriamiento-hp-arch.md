@@ -30,11 +30,16 @@ La ejecución de aplicaciones basadas en Electron, como Antigravity, genera rese
 
 La primera fase de automatización utilizó un script básico que reiniciaba el servicio NBFC ante picos de calor. Los resultados demostraron que el firmware de HP recupera el control de los ventiladores en intervalos cortos, anulando cualquier configuración externa.
 
-### Resultados de la Prueba Inicial (Falla de Guardian v1)
+#### Resultados de la Prueba Inicial (Falla de Guardian v1)
+
 | Configuración | Temperatura Media | Frecuencia Media |
-| :--- | :--- | :--- |
-| ACPI Stock | 83.1 °C | 3009 MHz |
-| Guardian v1 | 90.6 °C | 2821 MHz |
+| :------------ | :---------------- | :--------------- |
+| ACPI Stock    | 83.1 °C           | 3009 MHz         |
+| Guardian v1   | 90.6 °C           | 2821 MHz         |
+
+
+![Gráfica de Rendimiento V1](/assets/img/posts/acpi-v-nbfc-1.png)
+_Figura 1: Comparativa de estabilidad de frecuencia y gestión de temperatura en su primera versión._
 
 El primer intento de control manual fue un 6.2% menos eficiente que el sistema de fábrica, debido a la latencia en la reasignación de registros del controlador.
 
@@ -48,18 +53,6 @@ Para vencer la prioridad de la BIOS, se desarrolló el sistema **NBFC Guardian P
 ## Evidencia Empírica y Benchmarks
 
 Se realizaron pruebas de estrés sintético de 120 segundos (`stress --cpu 4`) monitoreadas con `s-tui`.
-
-### Resultados de la Prueba Inicial (Falla de Guardian v1)
-
-| Configuración | Temperatura Media | Frecuencia Media |
-| :------------ | :---------------- | :--------------- |
-| ACPI Stock    | 83.1 °C           | 3009 MHz         |
-| Guardian v1   | 90.6 °C           | 2821 MHz         |
-
-![Gráfica de Rendimiento V1](/assets/img/posts/acpi-v-nbfc-1.png)
-_Figura 1: Comparativa de estabilidad de frecuencia y gestión de temperatura en su primera versión._
-
-El primer intento de control manual fue un 6.2% menos eficiente que el sistema de fábrica. Esto se debió a la latencia en la reasignación de registros del controlador.
 
 ## Resultados Finales bajo Estrés
 
