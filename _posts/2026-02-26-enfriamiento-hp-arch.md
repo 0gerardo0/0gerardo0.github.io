@@ -4,6 +4,7 @@ date: 2026-02-26 23:30:00 -0600
 categories: [Sistemas, Hardware]
 tags: [nbfc, arch-linux, performance, engineering, virtualization]
 toc: true
+layout: post
 image:
   path: /assets/img/posts/acpi-v-nbfc-2.png
   alt: "Resultados de frecuencia y temperatura bajo carga"
