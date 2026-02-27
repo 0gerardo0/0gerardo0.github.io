@@ -6,7 +6,7 @@ tags: [nbfc, arch-linux, performance, engineering, virtualization]
 toc: true
 layout: post
 image:
-  path: /assets/img/posts/acpi-v-nbfc-2.png
+  path: /assets/img/posts/logo-acpi-ai.png
   alt: "Resultados de frecuencia y temperatura bajo carga"
 ---
 
