@@ -49,13 +49,28 @@ Para vencer la prioridad de la BIOS, se desarrolló el sistema **NBFC Guardian P
 
 Se realizaron pruebas de estrés sintético de 120 segundos (`stress --cpu 4`) monitoreadas con `s-tui`.
 
-| Métrica | ACPI Stock | Guardian Pro | Mejora Neta |
-| :--- | :--- | :--- | :--- |
-| Frecuencia Sostenida | 1541.4 MHz | 2655.2 MHz | **+72.2%** |
-| Frecuencia Mínima | 1.5 MHz | 1796.7 MHz | Estabilidad |
-| Temperatura Máxima | 89.1 °C | 93.2 °C | Flujo Activo |
+### Resultados de la Prueba Inicial (Falla de Guardian v1)
 
-![Gráfica de Rendimiento](/assets/img/posts/acpi-v-nbfc-2.png)
+| Configuración | Temperatura Media | Frecuencia Media |
+| :------------ | :---------------- | :--------------- |
+| ACPI Stock    | 83.1 °C           | 3009 MHz         |
+| Guardian v1   | 90.6 °C           | 2821 MHz         |
+
+![Gráfica de Rendimiento V1](/assets/img/posts/acpi-v-nbfc-1.png)
+_Figura 1: Comparativa de estabilidad de frecuencia y gestión de temperatura en su primera versión._
+
+El primer intento de control manual fue un 6.2% menos eficiente que el sistema de fábrica. Esto se debió a la latencia en la reasignación de registros del controlador.
+
+## Resultados Finales bajo Estrés
+
+| Métrica              | ACPI Stock  | Guardian Pro | Mejora Neta      |
+| :------------------- | :---------- | :----------- | :--------------- |
+| Frecuencia Sostenida | 1541.4 MHz  | 2655.2 MHz   | **+72.2%**       |
+| Frecuencia Mínima    | 1.5 MHz     | 1796.7 MHz   | Estabilidad      |
+| Temperatura Máxima   | 89.1 °C     | 93.2 °C      | Flujo Activo     |
+
+![Gráfica de Rendimiento V2](/assets/img/posts/acpi-v-nbfc-2.png)
+_Figura 2: Comparativa de estabilidad de frecuencia y gestión de temperatura en su segunda versión._
 
 Los datos confirman que el sistema ACPI original reduce la frecuencia del CPU a niveles críticos (Throttling) para mitigar el calor. El sistema Guardian Pro mantiene una potencia constante un 72% superior, extrayendo el rendimiento máximo teórico del procesador AMD A9.
 
@@ -67,22 +82,22 @@ Los datos confirman que el sistema ACPI original reduce la frecuencia del CPU a 
 
 El código fuente, los scripts de automatización y los datos crudos de las pruebas están disponibles en el repositorio [nbfc-guardian-pro](https://github.com/0gerardo0/nbfc-guardian-pro).
 
-## 7. Referencias y Documentación
+## Referencias y Documentación
 
 La implementación se basa en protocolos de comunicación de bajo nivel y herramientas de monitoreo estándar.
 
 **Estándares de Hardware y Energía**
-* Especificación ACPI (Advanced Configuration and Power Interface). Protocolos de comunicación entre OS y firmware. [UEFI Forum](https://uefi.org/specifications).
-* Controlador Embebido (EC). Guía técnica sobre microcontroladores en laptops. [Kernel.org](https://www.kernel.org/doc/html/latest/admin-guide/acpi/index.html).
+* **Especificación ACPI (Advanced Configuration and Power Interface).** Protocolos de comunicación entre OS y firmware. [UEFI Forum](https://uefi.org/specifications).
+* **Controlador Embebido (EC).** Guía técnica sobre microcontroladores en laptops. [Kernel.org](https://www.kernel.org/doc/html/latest/admin-guide/acpi/index.html).
 
 **Herramientas de Control y Monitoreo**
-* NBFC-Linux (NoteBook FanControl). Control de ventiladores mediante registros EC. [GitHub Repository](https://github.com/nbfc-linux/nbfc-linux).
-* s-tui (Stress-Terminal UI). Interfaz de monitoreo para frecuencia y temperatura. [GitHub Repository](https://github.com/amanusk/s-tui).
-* Stress. Generador de carga sintética para pruebas de estabilidad. [Debian Manpages](https://manpages.debian.org/testing/stress/stress.1.en.html).
+* **NBFC-Linux (NoteBook FanControl).** Control de ventiladores mediante registros EC. [GitHub Repository](https://github.com/nbfc-linux/nbfc-linux).
+* **s-tui (Stress-Terminal UI).** Interfaz de monitoreo para frecuencia y temperatura. [GitHub Repository](https://github.com/amanusk/s-tui).
+* **Stress.** Generador de carga sintética para pruebas de estabilidad. [Debian Manpages](https://manpages.debian.org/testing/stress/stress.1.en.html).
 
 **Gestión de Recursos en Linux**
-* Systemd Resource Control. Gestión de límites de memoria mediante cgroups. [Freedesktop Documentation](https://www.freedesktop.org/software/systemd/man/latest/systemd.resource-control.html).
-* Control Groups (cgroups v2). Aislamiento y limitación de recursos del kernel. [Kernel.org Guide](https://www.kernel.org/doc/html/latest/admin-guide/cgroup-v2.html).
+* **Systemd Resource Control.** Gestión de límites de memoria mediante cgroups. [Freedesktop Documentation](https://www.freedesktop.org/software/systemd/man/latest/systemd.resource-control.html).
+* **Control Groups (cgroups v2).** Aislamiento y limitación de recursos del kernel. [Kernel.org Guide](https://www.kernel.org/doc/html/latest/admin-guide/cgroup-v2.html).
 
 **Especificaciones del Procesador**
-* AMD A9-9420. Detalles sobre límites térmicos y frecuencias nominales. [AMD Product Specs](https://www.amd.com/en/support/downloads/drivers.html/processors/a-series/a9-series-apu-for-laptops/7th-gen-a9-9420-apu.html).
+* **AMD A9-9420.** Detalles sobre límites térmicos y frecuencias nominales. [AMD Product Specs](https://www.amd.com/en/support/downloads/drivers.html/processors/a-series/a9-series-apu-for-laptops/7th-gen-a9-9420-apu.html).
