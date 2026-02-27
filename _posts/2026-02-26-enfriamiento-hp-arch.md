@@ -55,7 +55,7 @@ Se realizaron pruebas de estrés sintético de 120 segundos (`stress --cpu 4`) m
 | Frecuencia Mínima | 1.5 MHz | 1796.7 MHz | Estabilidad |
 | Temperatura Máxima | 89.1 °C | 93.2 °C | Flujo Activo |
 
-![Gráfica de Rendimiento](/assets/img/posts/hp-thermal-optimization.png)
+![Gráfica de Rendimiento](/assets/img/posts/acpi-v-nbfc-2.png)
 
 Los datos confirman que el sistema ACPI original reduce la frecuencia del CPU a niveles críticos (Throttling) para mitigar el calor. El sistema Guardian Pro mantiene una potencia constante un 72% superior, extrayendo el rendimiento máximo teórico del procesador AMD A9.
 
