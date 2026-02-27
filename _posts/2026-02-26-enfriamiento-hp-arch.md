@@ -5,7 +5,7 @@ categories: [Sistemas, Hardware]
 tags: [nbfc, arch-linux, performance, engineering, virtualization]
 toc: true
 image:
-  path: /assets/img/posts/hp-thermal-optimization.png
+  path: /assets/img/posts/acpi-v-nbfc-2.png
   alt: "Resultados de frecuencia y temperatura bajo carga"
 ---
 
