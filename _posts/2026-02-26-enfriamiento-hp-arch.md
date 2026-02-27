@@ -11,19 +11,26 @@ image:
 
 El hardware HP fabricado en 2015 presenta limitaciones físicas y de firmware severas bajo distribuciones Linux. El Controlador Embebido (EC) prioriza el silencio operativo sobre la integridad del procesador AMD A9-9420. El sistema ignora las señales térmicas estándar del kernel y provoca picos de 99°C, resultando en bloqueos del bus de datos y parálisis total del sistema.
 
-## 1. Contención de Recursos y Memoria Virtual
+## 1. El Desafío del Firmware y Hardware
+
+El análisis de logs del sistema (`journalctl`) reveló inconsistencias críticas en la comunicación entre el kernel y el hardware:
+* **Bugs de Firmware**: Errores persistentes de `APIC ID mismatch` y fallos en la resolución de símbolos `ACPI` (`_SB.WLBU._STA.WLVD`).
+* **Inestabilidad del Bus**: Las fugas de recursos en aplicaciones pesadas provocaban interrupciones en el bus USB (`usb1-port2: Cannot enable`), inhabilitando periféricos de entrada antes del colapso total.
+* **Prioridad de Silencio**: El EC sobrescribe cualquier instrucción de software cada 30-60 segundos para mantener el ventilador en RPM mínimas, incluso bajo estrés térmico.
+
+## 2. Contención de Recursos y Memoria Virtual
 
 La ejecución de aplicaciones basadas en Electron, como Antigravity, genera reservas masivas de memoria virtual. El uso inicial de `ulimit` para mitigar fugas de memoria resultó ineficaz, provocando errores de interrupción (*Trace/breakpoint trap*).
 
 * **Implementación de cgroups v2**: Se sustituyó el límite de shell por contenedores de recursos mediante `systemd-run`.
-* **Restricción Física**: Se limitó la memoria RAM real (RSS) a 4GB.
+* **Restricción Física**: Se limitó la memoria RAM real (RSS) a 4GB, permitiendo el mapeo virtual extendido sin colapsar el sistema.
 * **Control del Kernel**: El Out-Of-Memory (OOM) killer actúa sobre el proceso específico antes de que la saturación de memoria bloquee las interrupciones del hardware.
 
-## 2. El Fracaso del Control Térmico Estándar
+## 3. El Fracaso del Control Térmico Estándar
 
-La primera fase de automatización utilizó un script básico que reiniciaba el servicio NBFC ante picos de calor. Los resultados demostraron que el firmware de HP recupera el control de los ventiladores en intervalos de 30 a 60 segundos, anulando cualquier configuración externa.
+La primera fase de automatización utilizó un script básico que reiniciaba el servicio NBFC ante picos de calor. Los resultados demostraron que el firmware de HP recupera el control de los ventiladores en intervalos cortos, anulando cualquier configuración externa.
 
-### Resultados de la Prueba Inicial (Falla)
+### Resultados de la Prueba Inicial (Falla de Guardian v1)
 | Configuración | Temperatura Media | Frecuencia Media |
 | :--- | :--- | :--- |
 | ACPI Stock | 83.1 °C | 3009 MHz |
@@ -31,34 +38,31 @@ La primera fase de automatización utilizó un script básico que reiniciaba el 
 
 El primer intento de control manual fue un 6.2% menos eficiente que el sistema de fábrica, debido a la latencia en la reasignación de registros del controlador.
 
-## 3. NBFC Guardian Pro: Lógica de Insistencia
+## 4. NBFC Guardian Pro: Lógica de Insistencia
 
 Para vencer la prioridad de la BIOS, se desarrolló el sistema **NBFC Guardian Pro**. Este motor implementa una técnica de fuerza bruta técnica: reinyecta el perfil de configuración hexadecimal directamente en los registros del hardware cada 30 segundos.
 
 * **Histéresis Estructurada**: Se estableció un umbral de activación en 60°C y una zona de desactivación en 50°C. Esta brecha de 10 grados estabiliza los ciclos de corriente del motor del ventilador.
 * **Anulación de ACPI**: Al concatenar los comandos `config` y `restart`, el script garantiza que el firmware reciba la orden de inicialización antes de que pueda reclamar la prioridad.
 
-## 4. Evidencia Empírica y Benchmarks
+## 5. Evidencia Empírica y Benchmarks
 
-Se realizaron pruebas de estrés sintético de 120 segundos comparando el firmware original contra el sistema Guardian Pro.
+Se realizaron pruebas de estrés sintético de 120 segundos (`stress --cpu 4`) monitoreadas con `s-tui`.
 
 | Métrica | ACPI Stock | Guardian Pro | Mejora Neta |
 | :--- | :--- | :--- | :--- |
-| Frecuencia Sostenida | 1541 MHz | 2655 MHz | **+72.2%** |
-| Frecuencia Mínima | 1.5 MHz | 1796 MHz | Estabilidad |
+| Frecuencia Sostenida | 1541.4 MHz | 2655.2 MHz | **+72.2%** |
+| Frecuencia Mínima | 1.5 MHz | 1796.7 MHz | Estabilidad |
 | Temperatura Máxima | 89.1 °C | 93.2 °C | Flujo Activo |
 
 ![Gráfica de Rendimiento](/assets/img/posts/hp-thermal-optimization.png)
 
-Los datos confirman que el sistema ACPI original reduce la frecuencia del CPU a niveles críticos para mitigar el calor. El sistema Guardian Pro elimina el *thermal throttling* severo, manteniendo una potencia constante un 72% superior.
+Los datos confirman que el sistema ACPI original reduce la frecuencia del CPU a niveles críticos (Throttling) para mitigar el calor. El sistema Guardian Pro mantiene una potencia constante un 72% superior, extrayendo el rendimiento máximo teórico del procesador AMD A9.
 
-## 5. Arquitectura del Repositorio
+## 6. Lecciones de Ingeniería
 
-El proyecto se organiza de forma modular para facilitar su despliegue en hardware similar:
+1. **Persistencia sobre Configuración**: En hardware con ACPI restrictivo, no basta con configurar; es necesario automatizar la re-inyección constante de estados.
+2. **Cgroups v2**: Es la herramienta definitiva para contener aplicaciones Electron/Chromium en Linux, superando las limitaciones de `ulimit`.
+3. **Hardware Limitado**: Un equipo de 2015 no es necesariamente obsoleto; a menudo está limitado por una gestión térmica conservadora diseñada para entornos de oficina silenciosos.
 
-* `scripts/nbfc-guardian.sh`: Lógica de monitoreo e inyección de perfiles.
-* `scripts/nbfc-pro`: Interfaz de línea de comandos para gestión de estados.
-* `scripts/antigravity-run`: Wrapper de ejecución bajo cgroups.
-* `configs/HP_Preventive.json`: Mapeo de registros para el microcontrolador HP.
-
-El sistema transforma un hardware restrictivo en una estación de trabajo funcional, extrayendo el rendimiento máximo teórico del procesador AMD A9 bajo entornos Arch Linux. El código completo y los datos crudos están disponibles en el repositorio [nbfc-guardian-pro](https://github.com/0gerardo0/nbfc-guardian-pro).
+El código fuente, los scripts de automatización y los datos crudos de las pruebas están disponibles en el repositorio [nbfc-guardian-pro](https://github.com/0gerardo0/nbfc-guardian-pro).
