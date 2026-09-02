@@ -231,6 +231,8 @@ El camino desde scripts sueltos hasta un sistema coherente de operaciones no fue
 
 La clave no está en las herramientas específicas, sino en la disciplina: todo en Git, todo automatizado, todo verificado.
 
+> **Actualización:** este post se publicó originalmente con el blog en Chirpy v7.3.1; tras migrar a v7.6.0, todos los enlaces y la configuración de despliegue siguen funcionando sin cambios.
+
 ## Referencias
 
 * **Ansible.** Documentación oficial de automatización de infraestructura. [https://docs.ansible.com/](https://docs.ansible.com/)
