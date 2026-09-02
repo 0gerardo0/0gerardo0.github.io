@@ -239,7 +239,7 @@ La clave no está en las herramientas específicas, sino en la disciplina: todo 
 
 * **Nginx.** Documentación de configuración de proxy reverso y seguridad. [https://nginx.org/en/docs/](https://nginx.org/en/docs/)
 
-* **PostgreSQL.** Guía de备份 y recuperación. [https://www.postgresql.org/docs/current/backup-dump.html](https://www.postgresql.org/docs/current/backup-dump.html)
+* **PostgreSQL.** Guía de backup y recuperación. [https://www.postgresql.org/docs/current/backup-dump.html](https://www.postgresql.org/docs/current/backup-dump.html)
 
 * **Cron.** Manual de programación de tareas en Linux. [https://man7.org/linux/man-pages/man8/cron.8.html](https://man7.org/linux/man-pages/man8/cron.8.html)
 
