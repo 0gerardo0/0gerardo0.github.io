@@ -1,6 +1,6 @@
 ---
 title: "Automatización y Operaciones en mi Homelab: Backups, Monitoreo y Despliegue Continuo"
-date: 2026-09-02 20:00:00 -0600
+date: 2026-09-02 06:00:00 -0600
 categories: [Infraestructura, DevOps]
 tags: [homelab, docker, ansible, backups, monitoreo, linux, debian]
 toc: true
