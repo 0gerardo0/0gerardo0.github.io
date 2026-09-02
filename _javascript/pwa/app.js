@@ -12,7 +12,9 @@ if ('serviceWorker' in navigator) {
     const $btnUpdate = $notification.querySelector('[aria-label="Update"]');
     const popupWindow = Toast.getOrCreateInstance($notification);
 
-    navigator.serviceWorker.register(swUrl).then((registration) => {
+    navigator.serviceWorker
+      .register(swUrl, { updateViaCache: 'none' })
+      .then((registration) => {
       // Restore the update window that was last manually closed by the user
       if (registration.waiting) {
         popupWindow.show();
