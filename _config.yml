@@ -85,9 +85,9 @@ analytics:
 # Habilita poniendo `enabled: true` y rellenando tu `client` (ca-pub-...) y `slot`
 # de un "Anuncio de display responsivo" creado en AdSense.
 adsense:
-  enabled: false # ponlo en `true` cuando tengas tu cuenta aprobada y el código generado
-  client: "ca-pub-XXXXXXXXXXXXXXXX" # tu ID de cliente de AdSense
-  slot: "1234567890" # el data-ad-slot de tu unidad de anuncio
+  enabled: true # ponlo en `true` cuando tengas tu cuenta aprobada y el código generado
+  client: "ca-pub-8716410790967635" # tu ID de cliente de AdSense
+  slot: "" # el data-ad-slot de tu unidad de anuncio (vacío = solo anuncios automáticos)
   consent: true # muestra el aviso de cookies/consentimiento (GDPR/CCPA)
 
 # Page views settings
