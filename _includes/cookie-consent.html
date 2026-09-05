@@ -1,0 +1,43 @@
+{%- if site.adsense.enabled and site.adsense.consent -%}
+<div
+  id="cookie-consent"
+  class="position-fixed bottom-0 start-0 end-0 p-3"
+  style="z-index: 1050; display: none;"
+>
+  <div
+    class="d-flex flex-column flex-sm-row align-items-start align-items-sm-center justify-content-between gap-2 rounded-3 shadow-lg border p-3 bg-body"
+  >
+    <p class="mb-sm-0 mb-2 me-sm-3 small text-body-secondary">
+      Este sitio utiliza cookies, incluidas las de publicidad (Google AdSense), para
+      personalizar contenido y analizar el tráfico. Al continuar, aceptas su uso.
+    </p>
+    <div class="d-flex gap-2 flex-shrink-0">
+      <button type="button" class="btn btn-primary btn-sm" data-cookie-action="accept">
+        Aceptar
+      </button>
+      <a class="btn btn-outline-secondary btn-sm" href="{{ '/privacy-policy' | relative_url }}">
+        Más información
+      </a>
+    </div>
+  </div>
+</div>
+<script>
+  (function () {
+    var KEY = 'cookie_consent';
+    if (localStorage.getItem(KEY)) {
+      return;
+    }
+    var banner = document.getElementById('cookie-consent');
+    if (!banner) {
+      return;
+    }
+    banner.style.display = 'block';
+    banner
+      .querySelector('[data-cookie-action="accept"]')
+      .addEventListener('click', function () {
+        localStorage.setItem(KEY, 'accepted');
+        banner.style.display = 'none';
+      });
+  })();
+</script>
+{%- endif -%}
