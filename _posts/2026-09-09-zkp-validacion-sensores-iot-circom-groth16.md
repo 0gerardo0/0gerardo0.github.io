@@ -16,7 +16,7 @@ image:
 
 Esa es la pregunta central de mi proyecto de tesis: el diseño e implementación de un sistema de atestación de telemetría IoT respaldado por **Pruebas de Conocimiento Cero (Zero-Knowledge Proofs - ZKP)**. 
 
-En esta primera entrega técnica, quiero compartir el roadmap del proyecto, la arquitectura que diseñé, los gráficos comparativos frente a paradigmas convencionales y los avances recientes en la capa criptográfica: la creación de nuestro primer circuito en **Circom 2.0** para comprobación de rangos numéricos, el análisis riguroso de restricciones algebraicas y la evaluación empírica con benchmarks estadísticos mediante el protocolo **Groth16**.
+En esta primera entrega técnica, quiero compartir el roadmap de mi tesis, la arquitectura que diseñé, los gráficos comparativos frente a paradigmas convencionales y los avances recientes en la capa criptográfica: el diseño de mi primer circuito en **Circom 2.0** para comprobación de rangos numéricos, el análisis de restricciones algebraicas y la evaluación empírica con benchmarks estadísticos mediante el protocolo **Groth16**.
 
 ---
 
@@ -30,11 +30,11 @@ En los sistemas tradicionales de monitoreo, los dispositivos periféricos (micro
 
 Este enfoque presenta dos problemas críticos:
 1. **Fuga de privacidad / confidencialidad:** Si el canal o la base de datos se ven comprometidos, cualquier observador conoce las lecturas exactas. En aplicaciones médicas, de infraestructura crítica o procesos industriales con propiedad intelectual, esos valores son datos sensibles.
-2. **Vulnerabilidad a manipulación intermedia:** Aunque usemos TLS/HTTPS, el servidor receptor debe procesar y confiar ciegamente en que el valor no fue alterado si las claves del dispositivo fueron filtradas o si existe un intermediario con acceso al payload.
+2. **Vulnerabilidad a manipulación intermedia:** Aunque se implemente TLS/HTTPS, el servidor receptor debe procesar y confiar ciegamente en que el valor no fue alterado si las claves del dispositivo sufren una filtración o si existe un intermediario con acceso al payload.
 
 ### Comparativa de Paradigmas en Seguridad IoT
 
-Para dimensionar las ventajas de este enfoque, comparamos el modelo ZKP frente a los dos estándares industriales dominantes:
+Para dimensionar las ventajas de este enfoque, comparé el modelo ZKP frente a los dos estándares industriales dominantes:
 
 ![Comparativa de Modelos de Seguridad e Integridad en IoT](/assets/img/posts/zkp-comparativa-paradigmas.png)
 *Figura 1: Evaluación multidimensional de paradigmas de integridad y privacidad en IoT (Escala 1 a 5).*
@@ -58,9 +58,9 @@ Para llevar esta teoría a la práctica sin asfixiar los recursos del microcontr
 
 ---
 
-## Roadmap del Proyecto: ¿En qué punto estamos?
+## Roadmap del Proyecto y Estado Actual
 
-Actualicé el roadmap del repositorio ([zkp-sensor-validation-thesis](https://github.com/0gerardo0/zpk-sensor-validation)) para reflejar los hitos alcanzados y el plan de ejecución:
+Actualicé el roadmap del repositorio ([zkp-sensor-validation-thesis](https://github.com/0gerardo0/zpk-sensor-validation)) para documentar los hitos alcanzados en esta etapa y el plan de trabajo:
 
 ```
 [Fase 1: Fundamentos & Setup] ───► [Fase 2: Circuitos ZKP Base] ───► [Fase 3: Integración Hardware] ───► [Fase 4: Pipeline & Eval]
@@ -79,7 +79,7 @@ Actualicé el roadmap del repositorio ([zkp-sensor-validation-thesis](https://gi
 
 ## Diseñando el Circuito: `range_check.circom`
 
-El núcleo de la lógica en ZKP reside en expresar las reglas computacionales como un **Sistema de Restricciones de Rango 1 (R1CS)**. En lugar de escribir un condicional clásico tipo `if (val >= min && val <= max)`, debemos construir relaciones cuadráticas de la forma $A \cdot B = C$ sobre un campo primo finito ($\mathbb{F}_p$).
+El núcleo de la lógica en ZKP reside en expresar las reglas computacionales como un **Sistema de Restricciones de Rango 1 (R1CS)**. En lugar de escribir un condicional clásico tipo `if (val >= min && val <= max)`, se construyen relaciones cuadráticas de la forma $A \cdot B = C$ sobre un campo primo finito ($\mathbb{F}_p$).
 
 Aprovechando la biblioteca `circomlib`, escribí el circuito `range_check.circom`:
 
@@ -111,16 +111,16 @@ template RangeCheck(n) {
     leq.out === 1;
 }
 
-// Instanciamos el circuito para números de 32 bits, exponiendo min y max como públicos
+// Instanciación del circuito para números de 32 bits, exponiendo min y max como públicos
 component main {public [min, max]} = RangeCheck(32);
 ```
 
-> **Detalle técnico clave:** En la línea final, declaramos `{public [min, max]}`. Esto significa que quien verifique la prueba conocerá qué umbrales se exigieron (ej. `min = 18`, `max = 30`), pero la señal `val` se mantiene completamente oculta dentro de la prueba criptográfica.
+> **Detalle técnico clave:** En la línea final, declaro `{public [min, max]}`. Esto significa que quien verifique la prueba conocerá qué umbrales se exigieron (ej. `min = 18`, `max = 30`), pero la señal `val` se mantiene completamente oculta dentro de la prueba criptográfica.
 {: .prompt-tip}
 
 ### Métricas de Complejidad del Circuito (R1CS)
 
-Al compilar este circuito e inspeccionarlo con `snarkjs r1cs info`, obtenemos las métricas exactas del sistema de restricciones sobre la curva `bn128`:
+Al compilar este circuito e inspeccionarlo con `snarkjs r1cs info`, obtuve las métricas exactas del sistema de restricciones sobre la curva `bn128`:
 
 * **Wires (Cables/Variables):** 74
 * **Constraints (Restricciones R1CS):** 74
@@ -133,17 +133,17 @@ Al tener únicamente 74 restricciones, el costo de generar la prueba y el tamañ
 
 ## Compilación y Ceremonia de Setup Criptográfico
 
-Para generar pruebas Groth16, necesitamos un **Trusted Setup** (Ceremonia de Powers of Tau) que proporcione los parámetros criptográficos sobre la curva elíptica `bn128`.
+Para generar pruebas Groth16, se requiere un **Trusted Setup** (Ceremonia de Powers of Tau) que proporcione los parámetros criptográficos sobre la curva elíptica `bn128`.
 
 ### 1. Compilación a R1CS y Testigos
-Compilamos el circuito generando las restricciones y el runtime en WebAssembly/C++ para calcular los testigos:
+Compilé el circuito para generar las restricciones y el runtime en WebAssembly/C++ encargado de calcular los testigos:
 
 ```bash
 circom src/zkp/circuits/range_check.circom --r1cs --wasm --sym -o src/zkp/circuits/
 ```
 
 ### 2. Powers of Tau & Generación de Llaves
-Utilizando una ceremonia Powers of Tau de 12 bits (`pot12_final.ptau`), generamos la llave del probador (`.zkey`) y exportamos la llave de verificación pública:
+Utilizando una ceremonia Powers of Tau de 12 bits (`pot12_final.ptau`), generé la llave del probador (`.zkey`) y exporté la llave de verificación pública:
 
 ```bash
 # Generar la llave inicial del circuito (Groth16 setup)
@@ -168,11 +168,11 @@ snarkjs zkey export verificationkey \
 
 ## Evidencia Experimental y Rigor Criptográfico
 
-Para garantizar que el circuito cumple con las propiedades formales de **completitud** (*completeness*) y **solidez computacional** (*computational soundness*), sometimos el sistema a una batería integral de pruebas unitarias, análisis de casos frontera y ataques de alteración (*tampering*):
+Para garantizar que el circuito cumple con las propiedades formales de **completitud** (*completeness*) y **solidez computacional** (*computational soundness*), sometí el sistema a una batería de pruebas unitarias, análisis de casos frontera y pruebas de alteración (*tampering*):
 
 ### 1. Pruebas de Frontera y Completitud
 
-Sometimos el circuito a casos límite en el dominio de números enteros sin signo:
+Evalué el circuito ante casos límite en el dominio de números enteros sin signo:
 
 * **Punto Interior Nominal:** $val = 24$, en $[18, 30] \implies$ **Genera prueba válida y Verifica OK.**
 * **Frontera Inferior Exacta:** $val = 18$, $min = 18 \implies$ **Verifica OK.**
@@ -181,7 +181,7 @@ Sometimos el circuito a casos límite en el dominio de números enteros sin sign
 
 ### 2. Resiliencia ante Ataques de Falsificación (Soundness)
 
-Probamos intencionalmente generar testigos con mediciones anómalas:
+Probé intencionalmente generar testigos con mediciones fuera de rango:
 
 * **Transgresión por 1 unidad abajo:** $val = 17$, $min = 18 \implies$ El motor de aserción falla de inmediato: `Error: Assert Failed (RangeCheck line 18)`.
 * **Transgresión por 1 unidad arriba:** $val = 31$, $max = 30 \implies$ Falla inmediata: `Error: Assert Failed (RangeCheck line 19)`.
@@ -190,12 +190,12 @@ Probamos intencionalmente generar testigos con mediciones anómalas:
 
 ### 3. Benchmarks Estadísticos de Rendimiento ($N = 50$)
 
-Para evaluar la estabilidad temporal y latencia sin sesgos de arranque en frío (*cold-start*), ejecutamos un muestreo continuo de $N = 50$ iteraciones del Prover y Verifier en Node.js sobre Linux (kernel x86_64):
+Para evaluar la estabilidad temporal y latencia sin sesgos de arranque en frío (*cold-start*), ejecuté un muestreo continuo de $N = 50$ iteraciones del Prover y Verifier en Node.js sobre Linux (kernel x86_64):
 
 ![Distribución de Latencia y Estabilidad Temporal de Groth16](/assets/img/posts/zkp-benchmarks-latencia.png)
 *Figura 3: Distribución de latencias (boxplot) y estabilidad temporal por corrida (N = 50).*
 
-A continuación se presentan los estadísticos descriptivos derivados de las 50 muestras:
+A continuación muestro los estadísticos descriptivos obtenidos tras las 50 corridas:
 
 | Operación | Media ($\mu$) | Desv. Estándar ($\sigma$) | Mediana ($P_{50}$) | Percentil 95 ($P_{95}$) | Mínimo | Máximo |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
@@ -218,15 +218,15 @@ Este trabajo está fundamentado en literatura primaria y herramientas estándar 
 
 ### Supuestos Críticos y Trabajo Futuro
 
-Como parte del rigor metodológico de la tesis, reconocemos las restricciones del prototipo actual:
+Como parte del rigor metodológico de mi tesis, tengo presentes las restricciones del prototipo en esta etapa:
 * **Representación Numérica:** Las mediciones con decimales de sensores como el DHT22 deben representarse en punto fijo (ej. factor de escala $\times 10$ o $\times 100$) previo a ingresar al circuito, dado que $\mathbb{F}_p$ opera estrictamente con enteros modulares.
-* **Atestación de Origen:** El circuito actual valida que *alguna lectura $val$* estuvo en rango, pero no firma la identidad del sensor. En la Fase 3 se integrará una atestación física (hash encadenado o firma digital de la lectura) para mitigar el ataque de suplantación de identidad del sensor.
+* **Atestación de Origen:** El circuito actual valida que *alguna lectura $val$* estuvo en rango, pero no firma la identidad del sensor. En la Fase 3 integraré una atestación física (hash encadenado o firma digital de la lectura) para mitigar el ataque de suplantación de identidad del sensor.
 
 ---
 
-## ¿Qué sigue en el proyecto?
+## Siguiente paso: Fase 3
 
-Con los circuitos validados y las llaves verificadas, el siguiente paso inmediato es la **Fase 3: Integración de Hardware**. Programaremos el firmware del Arduino MEGA para muestrear el sensor DHT22, formatear las tramas en punto fijo y transmitirlas por canal serial hacia el Prover.
+Con los circuitos validados y las llaves verificadas, el siguiente paso es la **Fase 3: Integración de Hardware**. Voy a desarrollar el firmware del Arduino MEGA para muestrear el sensor DHT22, formatear las tramas en punto fijo y transmitirlas por puerto serial hacia el Prover.
 
 Documentar este proyecto no solo me ayuda a estructurar los avances de mi tesis, sino a mostrar que la criptografía de conocimiento cero tiene aplicaciones prácticas y viables en el mundo físico y el IoT.
 
