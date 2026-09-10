@@ -4,6 +4,7 @@ date: 2026-09-09 20:00:00 -0600
 categories: [Criptografía, Proyectos]
 tags: [zkp, snarks, groth16, circom, iot, arduino, python, seguridad]
 toc: true
+math: true
 image:
   path: /assets/img/posts/zkp-sensor-cover.jpg
   alt: "Macro de circuito electrónico y microcontrolador — Fotografía por Alexandre Debiève en Unsplash"
