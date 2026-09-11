@@ -117,6 +117,20 @@ Para asegurar que ningún artículo se publique con vicios de redacción artific
   * Rutas locales que revelen información personal o de entorno innecesaria deben generalizarse (`~/.config/...` en lugar de rutas absolutas comprometedoras).
 * **Anonimización de datos de negocio y telemetría:** Datos de clientes, contratos o lecturas privadas reales deben reemplazarse por datos sintéticos de muestra que demuestren la funcionalidad técnica sin filtrar información confidencial.
 
+### 7. Estructura Obligatoria de Cierre: Conclusiones y Referencias
+* **Sección `## Conclusiones` obligatoria:**
+  * Debe cerrar con una síntesis reflexiva de la mentalidad de ingeniería aplicada.
+  * Debe conectar la solución con el repositorio o infraestructura real (ej. mención o enlace a `0gerardo0/odoo-server-playbook`, `0gerardo0/zkp-sensor-validation-thesis`, etc.) para dar trazabilidad práctica.
+* **Sección `## Referencias` obligatoria:**
+  * Al final de **todo** post debe existir una lista de referencias formal.
+  * Debe citar fuentes primarias: documentación oficial de herramientas (PostgreSQL, Nginx, Linux manpages, Odoo), RFCs, o papers académicos con enlaces funcionales.
+  * Formato estándar del blog:
+    ```markdown
+    ## Referencias
+
+    * **Organización o Autor.** *Título del recurso o documentación.* Enlace completo y accesible.
+    ```
+
 ---
 
 ## 📋 Checklist de Publicación para Nuevos Posts
@@ -129,5 +143,7 @@ Antes de dar por terminado cualquier artículo, verifica:
 - [ ] ¿Si tiene ecuaciones en `$` o `$$`, tiene **`math: true`** en el front matter?
 - [ ] ¿La portada proviene de una **fuente real (Unsplash)** con atribución en bloque `{: .prompt-info}`?
 - [ ] ¿Los diagramas y benchmarks reflejan **datos y mediciones empíricas reales**?
+- [ ] ¿Incluye una sección de **`## Conclusiones`** con cierre de ingeniería y enlace al repositorio?
+- [ ] ¿Incluye una sección formal de **`## Referencias`** citando documentación oficial y primaria?
 - [ ] ¿Compila limpiamente en Jekyll local (`bundle exec jekyll b`) sin errores de htmlproofer?
 - [ ] ¿El commit de Git es **corto, convencional y en una sola línea**?

@@ -248,3 +248,40 @@ Al devolver un `404 Not Found` en el proxy inverso antes de que la petición toq
    ```
 2. **PostgreSQL es estricto por diseño con SSL:** A diferencia de otros demonios que emiten advertencias y continúan, PostgreSQL abortará el arranque si tiene configurado `ssl = on` y no puede verificar la propiedad y permisos de la llave privada.
 3. **Nunca confíes en el comportamiento por defecto de un ERP ante fallos:** Los frameworks web a menudo tienen mecanismos de conveniencia para desarrollo (como el database selector automático) que se convierten en vectores de fuga de información en producción. La directiva `list_db = False` debe ser obligatoria desde el día cero.
+
+---
+
+## Conclusiones
+
+Los incidentes de infraestructura más desconcertantes rara vez se deben a bugs complejos en el código de la aplicación; casi siempre nacen en las intersecciones invisibles entre el sistema operativo, los permisos de bajo nivel y las asunciones por defecto del software.
+
+Este post-mortem dejó en evidencia que las tareas de hardening automatizado no terminan cuando el script de auditoría devuelve un score alto. La seguridad real reside en la coherencia entre el espacio de usuario, los inodos del sistema de archivos y las políticas de degradación elegante de cada servicio ante caídas catastróficas.
+
+Ambas correcciones —la auditoría de inodos para llaves SSL y el endurecimiento de Nginx y Odoo para silenciar definitivamente el selector de bases de datos— quedaron formalmente integradas y versionadas en mi playbook de aprovisionamiento ([`odoo-server-playbook`](https://github.com/0gerardo0/odoo-server-playbook)), asegurando que cualquier despliegue o nodo futuro nazca blindado por diseño.
+
+---
+
+## Referencias
+
+* **PostgreSQL Global Development Group (2023).** *Secure TCP/IP Connections with SSL — Server-Side Setup & Key File Security.* Documentación oficial de PostgreSQL 15 sobre la directiva `ssl = on` y validación de permisos en llaves privadas (`0600`/`0640`). [https://www.postgresql.org/docs/15/ssl-tcp.html](https://www.postgresql.org/docs/15/ssl-tcp.html)
+
+* **PostgreSQL Global Development Group (2023).** *Managing Connections — Unix-Domain Sockets (`unix_socket_directories`).* Especificación del ciclo de vida del socket `.s.PGSQL.5432` y control de concurrencia local. [https://www.postgresql.org/docs/15/runtime-config-connection.html](https://www.postgresql.org/docs/15/runtime-config-connection.html)
+
+* **Debian Policy Manual.** *Section 9.2.2: System users and groups (`ssl-cert`).* Especificación de empaquetado y aislamiento de permisos para servicios que requieren acceso a certificados compartidos en Debian GNU/Linux. [https://www.debian.org/doc/debian-policy/ch-opersys.html#system-users-and-groups](https://www.debian.org/doc/debian-policy/ch-opersys.html#system-users-and-groups)
+
+* **Debian Package Tracker.** *Package: ssl-cert & make-ssl-cert(8).* Manual de mantenimiento y aprovisionamiento seguro del directorio `/etc/ssl/private` (modo `710`). [https://manpages.debian.org/bookworm/ssl-cert/make-ssl-cert.8.en.html](https://manpages.debian.org/bookworm/ssl-cert/make-ssl-cert.8.en.html)
+
+* **Debian Project.** *Securing Debian Manual — File permissions and system integrity verification.* Guía oficial de hardening y gestión de permisos en Debian. [https://www.debian.org/doc/manuals/securing-debian-manual/](https://www.debian.org/doc/manuals/securing-debian-manual/)
+
+* **The Open Group / IEEE Std 1003.1-2017 (POSIX.1).** *File Access Permissions & Inode Metadata (`sys/stat.h`, `stat(2)`).* Estándar internacional sobre resolución de bits de permisos y desacoplamiento entre UIDs/GIDs numéricos en disco y nombres en `/etc/group`. [https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/sys_stat.h.html](https://pubs.opengroup.org/onlinepubs/9699919799/basedefs/sys_stat.h.html)
+
+* **Linux Kernel Organization.** *inode(7) — Linux manual page on inode metadata and filesystem attributes.* Manual del kernel Linux sobre estructuras de inodos y resolución de identidades numéricas. [https://man7.org/linux/man-pages/man7/inode.7.html](https://man7.org/linux/man-pages/man7/inode.7.html)
+
+* **Odoo S.A.** *Odoo Server Configuration and Command-line Interface (`list_db` and `dbfilter`).* Documentación oficial de despliegue, opciones de arranque y comportamiento multi-inquilino en Odoo. [https://www.odoo.com/documentation/18.0/developer/reference/cli.html](https://www.odoo.com/documentation/18.0/developer/reference/cli.html)
+
+* **Odoo Community Association (OCA).** *dbfilter_from_header — Dynamic database routing via reverse proxy headers.* Repositorio oficial de OCA server-tools para aislamiento perimetral de dominios hacia bases de datos. [https://github.com/OCA/server-tools](https://github.com/OCA/server-tools)
+
+* **Nginx Documentation.** *Module ngx_http_core_module — location directive syntax and access rules (`allow`, `deny`).* Documentación técnica del servidor web y proxy reverso Nginx. [https://nginx.org/en/docs/http/ngx_http_core_module.html](https://nginx.org/en/docs/http/ngx_http_core_module.html)
+
+* **CISOfy.** *Lynis — Security auditing and compliance tool for UNIX systems.* Documentación oficial del motor de auditoría de permisos, cuentas de sistema y hardening. [https://cisofy.com/lynis/](https://cisofy.com/lynis/)
+
