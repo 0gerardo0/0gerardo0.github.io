@@ -265,12 +265,13 @@ En sistemas oscilatorios lineales simples (como el péndulo simple con pequeñas
 Mientras la energía cinética $T(t)$ y potencial $V(t)$ oscilan violentamente entre $-120\text{ J}$ y $190\text{ J}$, la energía total $E(t) = T + V$ se mantiene confinada en una línea horizontal plana en torno a $\approx 69.8\text{ J}$. En el eje derecho (escala logarítmica), observamos que la deriva numérica de `odeint` (LSODA) se mantiene por debajo de $10^{-5}\text{ J}$ durante los 30 segundos, validando que los fotogramas generados reflejan física real y no artefactos numéricos.
 
 ### 4. El Efecto Mariposa y el Horizonte de Lyapunov (Panel D)
+
 Para poner a prueba el caos determinista, integré dos simulaciones paralelas con condiciones iniciales casi indistinguibles:
 
-* Péndulo A: $\theta_1(0) = \frac{3\pi}{4}\text{ rad}$
-* Péndulo B: $\theta_1(0) = \frac{3\pi}{4} + 0.001\text{ rad}$ (una discrepancia minúscula de apenas $0.057^\circ$).
+* **Péndulo A**: $\theta_1(0) = \frac{3\pi}{4}\text{ rad}$
+* **Péndulo B**: $\theta_1(0) = \frac{3\pi}{4} + 0.001\text{ rad}$ (una discrepancia minúscula de apenas $0.057^\circ$).
 
-Durante los primeros $5$ a $6$ segundos, la divergencia angular $|\Delta \theta_2(t)|$ permanece por debajo de $0.01\text{ rad}$; ambos péndulos parecen moverse al unísono. Sin embargo, al alcanzar el **Horizonte de Lyapunov** ($\approx 6.5\text{ s}$), la separación angular crece de manera exponencial hasta desacoplarse por completo: el péndulo B ejecuta bucles completos mientras el péndulo A invierte su giro. Este resultado ilustra por qué los sistemas caóticos son deterministas pero computacionalmente impredecibles a largo plazo.
+Durante los primeros $5$ a $6$ segundos, la divergencia angular $\lvert \Delta \theta_2(t) \rvert$ permanece por debajo de $0.01\text{ rad}$; ambos péndulos parecen moverse al unísono. Sin embargo, al alcanzar el **Horizonte de Lyapunov** ($\approx 6.5\text{ s}$), la separación angular crece de manera exponencial hasta desacoplarse por completo: el péndulo B ejecuta bucles completos mientras el péndulo A invierte su giro. Este resultado ilustra por qué los sistemas caóticos son deterministas pero computacionalmente impredecibles a largo plazo.
 
 ---
 
