@@ -1,5 +1,10 @@
 <!-- A placeholder to allow defining custom metadata -->
 
+{%- if page.layout == "tag" or page.layout == "tags" or page.layout == "category" or page.layout == "categories" or page.layout == "archives" -%}
+  <!-- Desindexar taxonomías para evitar thin-content en buscadores y AdSense -->
+  <meta name="robots" content="noindex, follow">
+{%- endif -%}
+
 {%- if site.adsense.client and site.adsense.client != "ca-pub-XXXXXXXXXXXXXXXX" -%}
   <!-- Google AdSense: verificación de propiedad -->
   <meta name="google-adsense-account" content="{{ site.adsense.client }}">
