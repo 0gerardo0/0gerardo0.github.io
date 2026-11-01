@@ -72,14 +72,11 @@ analytics:
   fathom:
     id: # fill in your Fathom Site ID
 
-# Google AdSense (monetización)
-# Habilita poniendo `enabled: true` y rellenando tu `client` (ca-pub-...) y `slot`
-# de un "Anuncio de display responsivo" creado en AdSense.
 adsense:
-  enabled: true # ponlo en `true` cuando tengas tu cuenta aprobada y el código generado
-  client: "ca-pub-8716410790967635" # tu ID de cliente de AdSense
-  slot: "" # el data-ad-slot de tu unidad de anuncio (vacío = solo anuncios automáticos)
-  consent: true # muestra el aviso de cookies/consentimiento (GDPR/CCPA)
+  enabled: false
+  client: "ca-pub-8716410790967635"
+  slot: ""
+  consent: false
 
 # Page views settings
 pageviews:
