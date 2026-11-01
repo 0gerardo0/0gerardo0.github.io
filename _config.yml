@@ -14,22 +14,19 @@ timezone: UTC-6
 # jekyll-seo-tag settings › https://github.com/jekyll/jekyll-seo-tag/blob/master/docs/usage.md
 # ↓ --------------------------
 
-title: Ingeniería con Gerardo # the main title
+title: Kernel Space
+tagline: Bitácora de bajo nivel, Linux y sistemas por 0gerardo0
 
-tagline: Blog de proyectos de desarrollo de software personales y alguna curiosidad más.  # it will display as the subtitle
+description: >-
+  Exploraciones en ingeniería de software, arquitectura de sistemas, C, Linux a bajo nivel, criptografía y homelab por 0gerardo0.
 
-description: >- # used by seo meta and the atom feed
- Un espacio para documentar mis proyectos de software, personales y algun otra noticia. C, Python, la administración de servidores y otros desafíos del desarrollo de software.
-
-# Fill in the protocol & hostname for your site.
-# E.g. 'https://username.github.io', note that it does not end with a '/'.
 url: "https://0gerardo0.engineer"
 
 github:
-  username: 0gerardo0 # change to your GitHub username
+  username: 0gerardo0
 
 twitter:
-  username: therambien # change to your Twitter username
+  username: therambien
 
 linkedin:
   username: gerard0-o
@@ -38,19 +35,13 @@ telegram:
   username: gerard0o0
 
 social:
-  # Change to your full name.
-  # It will be displayed as the default author of the posts and the copyright owner in the Footer
   name: Gerardo
-  email: gerardozuniga0401@hotmail.com # change to your email address
-  fediverse_handle: # fill in your fediverse handle. E.g. "@username@domain.com"
+  email: hola@madamexico.me
   links:
-    # The first element serves as the copyright owner's link
-    - https://twitter.com/therambien # change to your Twitter homepage
-    - https://github.com/0gerardo0 # change to your GitHub homepage
-    # Uncomment below to add more social links
-    # - https://www.facebook.com/username
+    - https://twitter.com/therambien
+    - https://github.com/0gerardo0
     - https://www.linkedin.com/in/gerard0-o
-    - https://www.t.me/gerard0o0
+    - https://t.me/gerard0o0
 
 # Site Verification Settings
 webmaster_verifications:
@@ -115,7 +106,7 @@ theme_mode: # [light | dark]
 cdn:
 
 # the avatar on sidebar, support local or CORS resources
-avatar: assets/img/avatar_1.jpg
+avatar: assets/img/avatar_0x0.png
 
 # The URL of the site-wide social preview image used in SEO `og:image` meta tag.
 # It can be overridden by a customized `page.image` in front matter.

@@ -43,4 +43,4 @@ En cumplimiento del GDPR (UE) y de la CCPA/CPRA (California, EE. UU.), tienes de
 
 ### 6. Contacto
 
-Para cualquier pregunta sobre esta política, puedes contactarme a través de [mi perfil de GitHub](https://github.com/0gerardo0).
+Para cualquier pregunta sobre esta política, puedes contactarme por correo en [hola@madamexico.me](mailto:hola@madamexico.me) o a través de [mi perfil de GitHub](https://github.com/0gerardo0).

@@ -24,15 +24,17 @@ Aunque siempre estoy explorando nuevas tecnologías, estas son las herramientas 
 * **Sistemas e Infraestructura:** Linux (Arch como mi sistema principal), Docker, Administración de Servidores
 * **Otros:** Git, Neovim, Redes
 
-### Sobre Este Blog
+### Sobre Kernel Space
 
-Este blog es mi bitácora pública y mi cuaderno de notas digital. Nació como una forma de documentar mis proyectos personales, como Terminus, y de solidificar mi propio conocimiento. Si explico algo aquí, es porque estoy tratando de entenderlo a fondo.
+Este blog es mi bitácora pública y cuaderno de notas de ingeniería. Nació como una forma de documentar proyectos de bajo nivel (como Terminus), despliegues de servidores, redes y temas de criptografía para solidificar mi propio conocimiento. Si explico algo aquí, es porque lo he puesto a prueba directamente en el código o en la terminal.
+
+Además de mis proyectos de investigación y homelab, desarrollo y gestiono infraestructura tecnológica en [Mando de Datos](https://madamexico.me) (MADA), implementando arquitecturas sobre Linux, Nginx, Odoo y servicios en la nube para entornos en producción.
 
 Aquí encontrarás:
-* Análisis profundos de mis proyectos personales.
-* Tutoriales y guías sobre configuración de sistemas.
-* Notas y reflexiones sobre desarrollo de software y tecnología en general.
+* Análisis técnicos de mis proyectos personales.
+* Guías prácticas sobre administración de servidores, redes y sistemas operativos.
+* Notas sobre desarrollo en C, Python, criptografía y software libre.
 
 ### Hablemos
 
-Si algo de lo que lees aquí te parece interesante, tienes alguna pregunta o simplemente quieres charlar sobre tecnología, no dudes en contactarme. La mejor forma de hacerlo es a través de [Telegram](https://t.me/gerard0o0) o echando un vistazo a mis proyectos en [GitHub](https://github.com/0gerardo0).
+Si algo de lo que lees aquí te parece interesante, tienes dudas o te gustaría colaborar en proyectos de tecnología o infraestructura, puedes escribirme por correo a [hola@madamexico.me](mailto:hola@madamexico.me), o contactarme vía [Telegram](https://t.me/gerard0o0) y [GitHub](https://github.com/0gerardo0).
