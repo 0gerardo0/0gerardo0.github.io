@@ -7,10 +7,10 @@ toc: true
 math: true
 image:
   path: /assets/img/posts/cutting-stock-ppr-cover.jpg
-  alt: "Mesa de ingeniería y herramientas de medición técnica"
+  alt: "Tuberías plásticas de agua e infraestructura de fontanería"
 ---
 
-> *Fotografía de portada: [ThisisEngineering](https://unsplash.com/@thisisengineering) en [Unsplash](https://unsplash.com/photos/thisisengineering) (Licencia Unsplash).*
+> *Fotografía de portada: [Unsplash](https://unsplash.com/photos/1585704032915-c3400ca199e7) (Licencia Unsplash).*
 {: .prompt-info}
 
 Hace algún tiempo me ofrecieron un trabajo en una obra para una constructora para fabricar e instalar 72 tomas de agua utilizando tubería de polipropileno copolímero random, conocida comúnmente como PPR, unida mediante termofusión.
@@ -214,7 +214,7 @@ En el momento fue frustrante, pero viéndolo con calma la experiencia dejó apre
 
 En las obras y en los negocios las cosas se mueven por conveniencia, rapidez y prioridades del momento. A veces a uno lo consideran para un trabajo más por resolver una urgencia o por cubrir un hueco que por un interés real en la formalidad técnica, y cuando cambian de parecer simplemente siguen adelante. No tiene sentido tomárselo como algo personal, así funciona el mercado y cada quien busca lo que mejor le acomoda.
 
-Lo que sí me quedó fue el conocimiento. Aprendí a termofusionar tubería de forma limpia y entendí en la práctica cómo formular y resolver problemas de corte de material con programación lineal. Ese tipo de experiencias te van dando colmillo para valorar tu propio tiempo, exigir acuerdos claros y entender que la preparación técnica siempre es útil, incluso cuando la obra original no llega a concretarse.
+Lo que sí me quedó fue el conocimiento. Aprendí a termofusionar tubería de forma limpia y entendí en la práctica cómo formular y resolver problemas de corte de material con programación lineal. Ese tipo de experiencias te van dando colmillo para valorar tu propio tiempo, exigir acuerdos claros y entender que la preparación técnica siempre es útil, incluso cuando la obra original no llega a concretarse. Años más tarde, cuando comencé con [Mando de Datos (MADA)](https://madamexico.me), esa misma disciplina de formalizar alcances y optimizar recursos antes de ejecutar se convirtió en un estándar indispensable.
 
 ---
 
