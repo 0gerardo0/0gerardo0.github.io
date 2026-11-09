@@ -5,12 +5,13 @@ categories: [Matemáticas, Algoritmos]
 tags: [python, optimizacion, programacion-lineal, pulp, algoritmos, matematicas]
 toc: true
 math: true
+mermaid: true
 image:
   path: /assets/img/posts/cutting-stock-ppr-cover.jpg
   alt: "Tuberías plásticas de agua e infraestructura de fontanería"
 ---
 
-> *Fotografía de portada: [Unsplash](https://unsplash.com/photos/1585704032915-c3400ca199e7) (Licencia Unsplash).*
+> *Fotografía de portada: [Dmitry G](https://commons.wikimedia.org/wiki/File:Green_plastic_pipes.JPG) en Wikimedia Commons (Dominio Público).*
 {: .prompt-info}
 
 Hace algún tiempo me ofrecieron un trabajo en una obra para una constructora para fabricar e instalar 72 tomas de agua utilizando tubería de polipropileno copolímero random, conocida comúnmente como PPR, unida mediante termofusión.
@@ -27,10 +28,12 @@ Antes de ponerme a programar nada, necesitaba entender cómo se trabaja el mater
 
 A esa temperatura el plástico del tubo y del accesorio se derrite lo suficiente para que, al unirlos, se fundan en una sola pieza continua al enfriarse.
 
-```
-Tubo PPR ────────┐
-                 ├── Calentamiento a 260 °C ──> Unión recta sin girar ──> Enfriamiento
-Accesorio PPR ───┘
+```mermaid
+flowchart LR
+    A["Tubo PPR (Ø 20/25 mm)"] -->|Calentamiento 5 a 7 s| B["Plancha calefactora a 260 °C (Dados de teflón)"]
+    C["Accesorio PPR (Codo / Cople)"] -->|Calentamiento 5 a 7 s| B
+    B -->|Extracción en línea recta| D["Acoplamiento axial sin rotación"]
+    D -->|Enfriamiento 2 min| E["Unión continua (Cero fugas)"]
 ```
 
 El proceso tiene reglas muy estrictas si no quieres arruinar la instalación:
@@ -167,6 +170,44 @@ prob.solve(solver)
 ```
 
 El resolvedor tarda menos de un segundo en evaluar los más de 32,000 patrones y quedarse únicamente con **10 recetas de corte**.
+
+```mermaid
+flowchart TD
+    subgraph Entrada["1. Parámetros Físicos"]
+        P1["Barras estándar L = 400 cm"]
+        P2["7 tipos de piezas (15 a 80 cm)"]
+        P3["Inventario disponible: 20 tubos"]
+    end
+
+    subgraph Generacion["2. Backtracking Recursivo"]
+        B1["Búsqueda exhaustiva 1D Knapsack"]
+        B2["Poda de ramas con longitud restante < 15 cm"]
+        B3["Catálogo generado: 32,836 patrones admisibles"]
+    end
+
+    subgraph Optimizacion["3. Modelo Entero (ILP)"]
+        M1["Función objetivo: max z (tomas completas)"]
+        M2["Restricción: Σ x_i ≤ 20 tubos"]
+        M3["Balance uniforme: Σ a_ij x_i ≥ z para cada pieza"]
+    end
+
+    subgraph Resolucion["4. Solver COIN-OR CBC"]
+        S1["Algoritmo Branch and Cut"]
+        S2["Resolución entera en < 1 segundo"]
+    end
+
+    subgraph Salida["5. Plan de Corte Óptimo"]
+        O1["z = 28 tomas completas garantizadas"]
+        O2["10 recetas seleccionadas"]
+        O3["14 tubos con 0.0 cm de desperdicio"]
+        O4["Merma global < 0.5% en 80 metros"]
+    end
+
+    Entrada --> Generacion
+    Generacion --> Optimizacion
+    Optimizacion --> Resolucion
+    Resolucion --> Salida
+```
 
 ---
 
